@@ -40,6 +40,16 @@ class CronScanCommand extends ContainerAwareCommand
             $reflClass = new \ReflectionClass($command);
             foreach ($reader->getClassAnnotations($reflClass) as $anno) {
                 if ($anno instanceof CronJobAnno) {
+
+                    if(is_null($anno->startDate)) {
+                        $newTime = new \DateTime();
+                        $newTime = $newTime->add(new \DateInterval($anno->value));
+                    } else {
+                        $newTime = new \DateTime();
+                        $newTime->modify($anno->startDate);
+                        $newTime->setTime(10,00,00);
+                    }
+
                     $job = $command->getName();
                     if (array_key_exists($job, $knownJobs)) {
                         // Clear it from the known jobs so that we don't try to delete it
@@ -49,15 +59,12 @@ class CronScanCommand extends ContainerAwareCommand
                         $currentJob = $jobRepo->findOneByCommand($job);
                         $currentJob->setDescription($command->getDescription());
                         if ($currentJob->getInterval() != $anno->value) {
-                            $newTime = new \DateTime();
-                            $newTime = $newTime->add(new \DateInterval($anno->value));
-
                             $currentJob->setInterval($anno->value);
                             $currentJob->setNextRun($newTime);
                             $output->writeln("Updated interval for $job to {$anno->value}");
                         }
                     } else {
-                        $this->newJobFound($em, $output, $command, $anno, $defaultDisabled);
+                        $this->newJobFound($em, $output, $command, $anno, $newTime, $defaultDisabled);
                     }
                 }
             }
@@ -76,13 +83,13 @@ class CronScanCommand extends ContainerAwareCommand
         $output->writeln('Finished scanning for cron jobs');
     }
 
-    protected function newJobFound(EntityManager $em, OutputInterface $output, Command $command, CronJobAnno $anno, $defaultDisabled = false)
+    protected function newJobFound(EntityManager $em, OutputInterface $output, Command $command, CronJobAnno $anno, $newTime, $defaultDisabled = false)
     {
         $newJob = new CronJob();
         $newJob->setCommand($command->getName());
         $newJob->setDescription($command->getDescription());
         $newJob->setInterval($anno->value);
-        $newJob->setNextRun(new \DateTime());
+        $newJob->setNextRun($newTime);
         $newJob->setEnabled(!$defaultDisabled);
 
         $output->writeln('Added the job '.$newJob->getCommand().' with interval '.$newJob->getInterval());
