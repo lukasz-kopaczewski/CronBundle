@@ -1,4 +1,5 @@
 <?php
+
 namespace ColourStream\Bundle\CronBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -13,39 +14,45 @@ class CronJobResult
     const FAILED = 1;
     const SKIPPED = 2;
     const RESULT_MAX = 2;
-    
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @var integer $id
+     *
+     * @var int
      */
     protected $id;
-    
+
     /**
      * @ORM\Column(type="datetime")
-     * @var DateTime $runAt
+     *
+     * @var DateTime
      */
     protected $runAt;
     /**
      * @ORM\Column(type="float")
-     * @var float $runTime
+     *
+     * @var float
      */
     protected $runTime;
-    
+
     /**
      * @ORM\Column(type="integer")
-     * @var integer $result
+     *
+     * @var int
      */
     protected $result;
     /**
      * @ORM\Column(type="text")
-     * @var string $output
+     *
+     * @var string
      */
     protected $output;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="CronJob", inversedBy="results")
+     *
      * @var CronJob
      */
     protected $job;
@@ -54,11 +61,11 @@ class CronJobResult
     {
         $this->runAt = new \DateTime();
     }
-    
+
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -66,7 +73,7 @@ class CronJobResult
     }
 
     /**
-     * Set runAt
+     * Set runAt.
      *
      * @param datetime $runAt
      */
@@ -76,9 +83,9 @@ class CronJobResult
     }
 
     /**
-     * Get runAt
+     * Get runAt.
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getRunAt()
     {
@@ -86,7 +93,7 @@ class CronJobResult
     }
 
     /**
-     * Set runTime
+     * Set runTime.
      *
      * @param float $runTime
      */
@@ -96,9 +103,9 @@ class CronJobResult
     }
 
     /**
-     * Get runTime
+     * Get runTime.
      *
-     * @return float 
+     * @return float
      */
     public function getRunTime()
     {
@@ -106,9 +113,9 @@ class CronJobResult
     }
 
     /**
-     * Set result
+     * Set result.
      *
-     * @param integer $result
+     * @param int $result
      */
     public function setResult($result)
     {
@@ -116,9 +123,9 @@ class CronJobResult
     }
 
     /**
-     * Get result
+     * Get result.
      *
-     * @return integer 
+     * @return int
      */
     public function getResult()
     {
@@ -126,7 +133,7 @@ class CronJobResult
     }
 
     /**
-     * Set output
+     * Set output.
      *
      * @param string $output
      */
@@ -136,9 +143,9 @@ class CronJobResult
     }
 
     /**
-     * Get output
+     * Get output.
      *
-     * @return string 
+     * @return string
      */
     public function getOutput()
     {
@@ -146,7 +153,7 @@ class CronJobResult
     }
 
     /**
-     * Set job
+     * Set job.
      *
      * @param ColourStream\Bundle\CronBundle\Entity\CronJob $job
      */
@@ -156,9 +163,9 @@ class CronJobResult
     }
 
     /**
-     * Get job
+     * Get job.
      *
-     * @return ColourStream\Bundle\CronBundle\Entity\CronJob 
+     * @return ColourStream\Bundle\CronBundle\Entity\CronJob
      */
     public function getJob()
     {

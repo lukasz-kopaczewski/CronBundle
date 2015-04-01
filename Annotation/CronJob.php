@@ -1,7 +1,8 @@
 <?php
+
 namespace ColourStream\Bundle\CronBundle\Annotation;
 
-/**
+/*
  * @Annotation()
  * @Target("CLASS")
  */

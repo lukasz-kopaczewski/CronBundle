@@ -1,4 +1,5 @@
 <?php
+
 namespace ColourStream\Bundle\CronBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -12,44 +13,52 @@ class CronJob
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @var integer $id
+     *
+     * @var int
      */
     protected $id;
-    
+
     /**
      * @ORM\Column
-     * @var string $command
+     *
+     * @var string
      */
     protected $command;
     /**
      * @ORM\Column
-     * @var string $description
+     *
+     * @var string
      */
     protected $description;
-    
+
     /**
      * @ORM\Column(name="job_interval", type="string", length=40)
-     * @var string $interval
+     *
+     * @var string
      */
     protected $interval;
     /**
      * @ORM\Column(type="datetime")
-     * @var DateTime $nextRun
+     *
+     * @var DateTime
      */
     protected $nextRun;
     /**
      * @ORM\Column(type="boolean")
-     * @var boolean $enabled
+     *
+     * @var bool
      */
     protected $enabled;
-    
+
     /**
      * @ORM\OneToMany(targetEntity="CronJobResult", mappedBy="job", cascade={"remove"})
+     *
      * @var ArrayCollection
      */
     protected $results;
     /**
      * @ORM\OneToOne(targetEntity="CronJobResult")
+     *
      * @var CronJobResult
      */
     protected $mostRecentRun;
@@ -57,11 +66,11 @@ class CronJob
     {
         $this->results = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -69,7 +78,7 @@ class CronJob
     }
 
     /**
-     * Set command
+     * Set command.
      *
      * @param string $command
      */
@@ -79,9 +88,9 @@ class CronJob
     }
 
     /**
-     * Get command
+     * Get command.
      *
-     * @return string 
+     * @return string
      */
     public function getCommand()
     {
@@ -89,7 +98,7 @@ class CronJob
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
      */
@@ -99,9 +108,9 @@ class CronJob
     }
 
     /**
-     * Get description
+     * Get description.
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -109,7 +118,7 @@ class CronJob
     }
 
     /**
-     * Set interval
+     * Set interval.
      *
      * @param string $interval
      */
@@ -119,9 +128,9 @@ class CronJob
     }
 
     /**
-     * Get interval
+     * Get interval.
      *
-     * @return string 
+     * @return string
      */
     public function getInterval()
     {
@@ -129,7 +138,7 @@ class CronJob
     }
 
     /**
-     * Set nextRun
+     * Set nextRun.
      *
      * @param datetime $nextRun
      */
@@ -139,9 +148,9 @@ class CronJob
     }
 
     /**
-     * Get nextRun
+     * Get nextRun.
      *
-     * @return datetime 
+     * @return datetime
      */
     public function getNextRun()
     {
@@ -149,7 +158,7 @@ class CronJob
     }
 
     /**
-     * Add results
+     * Add results.
      *
      * @param ColourStream\Bundle\CronBundle\Entity\CronJobResult $results
      */
@@ -159,9 +168,9 @@ class CronJob
     }
 
     /**
-     * Get results
+     * Get results.
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Doctrine\Common\Collections\Collection
      */
     public function getResults()
     {
@@ -169,7 +178,7 @@ class CronJob
     }
 
     /**
-     * Set mostRecentRun
+     * Set mostRecentRun.
      *
      * @param ColourStream\Bundle\CronBundle\Entity\CronJobResult $mostRecentRun
      */
@@ -179,9 +188,9 @@ class CronJob
     }
 
     /**
-     * Get mostRecentRun
+     * Get mostRecentRun.
      *
-     * @return ColourStream\Bundle\CronBundle\Entity\CronJobResult 
+     * @return ColourStream\Bundle\CronBundle\Entity\CronJobResult
      */
     public function getMostRecentRun()
     {
@@ -189,9 +198,9 @@ class CronJob
     }
 
     /**
-     * Set enabled
+     * Set enabled.
      *
-     * @param boolean $enabled
+     * @param bool $enabled
      */
     public function setEnabled($enabled)
     {
@@ -199,9 +208,9 @@ class CronJob
     }
 
     /**
-     * Get enabled
+     * Get enabled.
      *
-     * @return boolean 
+     * @return bool
      */
     public function getEnabled()
     {
